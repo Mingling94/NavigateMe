@@ -2,14 +2,12 @@
 
 #define NUM_MENU_SECTIONS 1
 #define NUM_MENU_ICONS 3
-#define NUM_FIRST_MENU_ITEMS 4
+#define NUM_FIRST_MENU_ITEMS 15
 
 static Window *s_main_window;
 static MenuLayer *s_menu_layer;
 static GBitmap *s_menu_icons[NUM_MENU_ICONS];
 static GBitmap *s_background_bitmap;
-
-static int s_current_icon = 0;
 
 static uint16_t menu_get_num_sections_callback(MenuLayer *menu_layer, void *data) {
   return NUM_MENU_SECTIONS;
@@ -25,7 +23,7 @@ static int16_t menu_get_header_height_callback(MenuLayer *menu_layer, uint16_t s
 
 static void menu_draw_header_callback(GContext* ctx, const Layer *cell_layer, uint16_t section_index, void *data) {
 
-      menu_cell_basic_header_draw(ctx, cell_layer, "Friends List");
+      menu_cell_basic_header_draw(ctx, cell_layer, "Some example items");
 }
 
 static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
@@ -51,22 +49,30 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
           // This is a basic menu item with a title and subtitle
           menu_cell_title_draw(ctx, cell_layer, "Final Item");
           break;
+        default:
+        menu_cell_title_draw(ctx, cell_layer, "xxxxx Item");
       }
 }
 
+
+//clicked!
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
-  // Use the row to specify which item will receive the select action
-  switch (cell_index->row) {
-    // This is the menu item with the cycling icon
-    case 1:
-      // Cycle the icon
-      s_current_icon = (s_current_icon + 1) % NUM_MENU_ICONS;
-      // After changing the icon, mark the layer to have it updated
-      layer_mark_dirty(menu_layer_get_layer(menu_layer));
-      break;
+
+  DictionaryIterator *iter;
+  app_message_outbox_begin(&iter);
+
+  if (!iter) {
+    // Error creating outbound message
+    return;
   }
+  
+  dict_write_int(iter, 1 , &(cell_index->row), sizeof(int), true);
+  dict_write_end(iter);
+
+  app_message_outbox_send();
 
 }
+
 
 static void main_window_load(Window *window) {
 
@@ -110,6 +116,8 @@ static void init() {
     .unload = main_window_unload,
   });
   window_stack_push(s_main_window, true);
+  
+  app_message_open(64, 64);
 }
 
 static void deinit() {
