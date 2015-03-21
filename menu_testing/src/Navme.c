@@ -83,7 +83,7 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
 
   app_message_outbox_send();
   
-   new_window=window_create();
+  new_window=window_create();
     window_set_window_handlers(new_window, (WindowHandlers) {
     .load = window_load,
     .unload = window_unload,
