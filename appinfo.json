@@ -8,7 +8,10 @@
   "watchapp": {
     "watchface": true
   },
-  "appKeys": {},
+  "appKeys": {
+    "KEY_ANGLE": 0,
+    "KEY_DISTf": 1
+  },
   "resources": {
     "media": []
   },
