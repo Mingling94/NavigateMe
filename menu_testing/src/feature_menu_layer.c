@@ -5,7 +5,9 @@
 #define NUM_FIRST_MENU_ITEMS 15
 
 static Window *s_main_window;
+static Window *new_window;
 static MenuLayer *s_menu_layer;
+static TextLayer *arrow;
 static GBitmap *s_menu_icons[NUM_MENU_ICONS];
 static GBitmap *s_background_bitmap;
 
@@ -53,7 +55,17 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
         menu_cell_title_draw(ctx, cell_layer, "xxxxx Item");
       }
 }
-
+static void window_load(Window *window) {
+  arrow = text_layer_create(GRect(0, 55, 144, 50));
+  text_layer_set_background_color(arrow, GColorClear);
+  text_layer_set_text_color(arrow, GColorBlack);
+  text_layer_set_text(arrow, "00:00");
+  
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(arrow));
+}
+static void window_unload(Window *window) {
+  window_destroy(new_window);
+}
 
 //clicked!
 static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
@@ -70,9 +82,15 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
   dict_write_end(iter);
 
   app_message_outbox_send();
+  
+   new_window=window_create();
+    window_set_window_handlers(new_window, (WindowHandlers) {
+    .load = window_load,
+    .unload = window_unload,
+  });
+  window_stack_push(new_window, true);
 
 }
-
 
 static void main_window_load(Window *window) {
 
