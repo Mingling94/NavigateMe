@@ -1,0 +1,26 @@
+{
+  "uuid": "ed70b15c-3c48-4828-8e8c-e39a28efb38d",
+  "shortName": "Tutorial-1-1",
+  "longName": "Tutorial-1-1",
+  "companyName": "Pebble",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "KEY_ANGLE": 0,
+    "KEY_DISTf": 1
+  },  
+  "capabilities": [
+    "location"
+  ],
+  "resources": {
+    "media": []
+  },
+  "targetPlatforms": [
+    "aplite",
+    "basalt"
+  ],
+  "sdkVersion": "3"
+}

@@ -6,6 +6,11 @@
     "companyName": "joeylee0925@gmail.com",
     "longName": "menu testing",
     "projectType": "native",
+    "appKeys": {
+      "KEY_DATA": 5,
+      "KEY_ANG" : 1,
+      "KEY_DIST": 2
+    },
     "resources": {
         "media": [
             {
