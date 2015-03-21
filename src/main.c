@@ -1,47 +1,128 @@
-#include <pebble.h>
-  
+#include "pebble.h"
+
+#define NUM_MENU_SECTIONS 1
+#define NUM_MENU_ICONS 3
+#define NUM_FIRST_MENU_ITEMS 4
+
 static Window *s_main_window;
-static TextLayer *s_time_layer;
- 
+static MenuLayer *s_menu_layer;
+static GBitmap *s_menu_icons[NUM_MENU_ICONS];
+static GBitmap *s_background_bitmap;
+
+static int s_current_icon = 0;
+
+static uint16_t menu_get_num_sections_callback(MenuLayer *menu_layer, void *data) {
+  return NUM_MENU_SECTIONS;
+}
+
+static uint16_t menu_get_num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *data) {
+      return NUM_FIRST_MENU_ITEMS;
+}
+
+static int16_t menu_get_header_height_callback(MenuLayer *menu_layer, uint16_t section_index, void *data) {
+  return MENU_CELL_BASIC_HEADER_HEIGHT;
+}
+
+static void menu_draw_header_callback(GContext* ctx, const Layer *cell_layer, uint16_t section_index, void *data) {
+
+      menu_cell_basic_header_draw(ctx, cell_layer, "Some example items");
+}
+
+static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
+
+      // Use the row to specify which item we'll draw
+      switch (cell_index->row) {
+        case 0:
+          // This is a basic menu item with a title and subtitle
+          menu_cell_title_draw(ctx, cell_layer, "First Item");
+          break;
+        case 1:
+          // This is a basic menu icon with a cycling icon
+          menu_cell_title_draw(ctx, cell_layer, "Second Item");
+          break;
+        case 2: 
+          {
+            // Here we use the graphics context to draw something different
+            // In this case, we show a strip of a watchface's background
+           menu_cell_title_draw(ctx, cell_layer, "Third Item");
+          }
+          break;
+        case 3:
+          // This is a basic menu item with a title and subtitle
+          menu_cell_title_draw(ctx, cell_layer, "Final Item");
+          break;
+      }
+}
+
+static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
+  // Use the row to specify which item will receive the select action
+  switch (cell_index->row) {
+    // This is the menu item with the cycling icon
+    case 1:
+      // Cycle the icon
+      s_current_icon = (s_current_icon + 1) % NUM_MENU_ICONS;
+      // After changing the icon, mark the layer to have it updated
+      layer_mark_dirty(menu_layer_get_layer(menu_layer));
+      break;
+  }
+
+}
+
 static void main_window_load(Window *window) {
-  // Create time TextLayer
-  s_time_layer = text_layer_create(GRect(0, 55, 144, 50));
-  text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorBlack);
-  text_layer_set_text(s_time_layer, "Yo!");
- 
-  // Improve the layout to be more like a watchface
-  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
-  text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
- 
-  // Add it as a child layer to the Window's root layer
-  layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
+  // Here we load the bitmap assets
+  s_menu_icons[0] = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_BIG_WATCH);
+  s_menu_icons[1] = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_SECTOR_WATCH);
+  s_menu_icons[2] = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_BINARY_WATCH);
+
+  // And also load the background
+  s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND_BRAINS);
+
+  // Now we prepare to initialize the menu layer
+  Layer *window_layer = window_get_root_layer(window);
+  GRect bounds = layer_get_frame(window_layer);
+
+  // Create the menu layer
+  s_menu_layer = menu_layer_create(bounds);
+  menu_layer_set_callbacks(s_menu_layer, NULL, (MenuLayerCallbacks){
+    .get_num_sections = menu_get_num_sections_callback,
+    .get_num_rows = menu_get_num_rows_callback,
+    .get_header_height = menu_get_header_height_callback,
+    .draw_header = menu_draw_header_callback,
+    .draw_row = menu_draw_row_callback,
+    .select_click = menu_select_callback,
+  });
+
+  // Bind the menu layer's click config provider to the window for interactivity
+  menu_layer_set_click_config_onto_window(s_menu_layer, window);
+
+  layer_add_child(window_layer, menu_layer_get_layer(s_menu_layer));
 }
- 
+
 static void main_window_unload(Window *window) {
-  // Destroy TextLayer
-  text_layer_destroy(s_time_layer);
+  // Destroy the menu layer
+  menu_layer_destroy(s_menu_layer);
+
+  // Cleanup the menu icons
+  for (int i = 0; i < NUM_MENU_ICONS; i++) {
+    gbitmap_destroy(s_menu_icons[i]);
+  }
+
+  gbitmap_destroy(s_background_bitmap);
 }
-  
+
 static void init() {
-  // Create main Window element and assign to pointer
   s_main_window = window_create();
- 
-  // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers) {
     .load = main_window_load,
-    .unload = main_window_unload
+    .unload = main_window_unload,
   });
- 
-  // Show the Window on the watch, with animated=true
   window_stack_push(s_main_window, true);
 }
- 
+
 static void deinit() {
-  // Destroy Window
   window_destroy(s_main_window);
 }
- 
+
 int main(void) {
   init();
   app_event_loop();
