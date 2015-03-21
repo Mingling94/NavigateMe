@@ -1,13 +1,13 @@
-# project  configured on Sat Mar 21 03:41:15 2015 by
+# project  configured on Sat Mar 21 04:36:58 2015 by
 # waf 1.7.11 (abi 98, python 20706f0 on linux2)
 # using /home/joey/pebble-dev/PebbleSDK-3.0-dp4/Pebble/waf configure build
 #
 ----------------------------------------
 Setting top to
-/home/joey/workspace/testPebble/Tutorial1
+/home/joey/workspace/NavigateMe
 ----------------------------------------
 Setting out to
-/home/joey/workspace/testPebble/Tutorial1/build
+/home/joey/workspace/NavigateMe/build
 ----------------------------------------
 Found Pebble SDK for basalt in:
 /home/joey/pebble-dev/PebbleSDK-3.0-dp4/Pebble/basalt
