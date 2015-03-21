@@ -1,0 +1,41 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "joeylee0925@gmail.com",
+    "longName": "menu testing",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/brains_watch_background.png",
+                "name": "IMAGE_BACKGROUND_BRAINS",
+                "type": "png"
+            },
+            {
+                "file": "images/menu_icon_binary_watch.png",
+                "name": "IMAGE_MENU_ICON_BINARY_WATCH",
+                "type": "png"
+            },
+            {
+                "file": "images/menu_icon_sector_watch.png",
+                "name": "IMAGE_MENU_ICON_SECTOR_WATCH",
+                "type": "png"
+            },
+            {
+                "file": "images/menu_icon_big_watch.png",
+                "name": "IMAGE_MENU_ICON_BIG_WATCH",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "menu testing",
+    "uuid": "6a45f61f-6cf2-4384-9cfd-3de8407d2ab3",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
