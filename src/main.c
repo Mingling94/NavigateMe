@@ -65,8 +65,8 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
     // Error creating outbound message
     return;
   }
-  
-  dict_write_int(iter, 1 , &(cell_index->row), sizeof(int), true);
+  int ID = cell_index->row;
+  dict_write_int(iter, 1 , &ID, sizeof(int), true);
   dict_write_end(iter);
 
   app_message_outbox_send();
