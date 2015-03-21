@@ -4,3 +4,4 @@ Designed and developed at HackBU 2015
 
 Members:
 - Ming Luo
+- Joseph Lee
