@@ -1,6 +1,28 @@
-{"uuid": "6a45f61f-6cf2-4384-9cfd-3de8407d2ab3", "sdkVersion": "3", 
-"watchapp": {"watchface": false}, "versionLabel": "1.0", "capabilities": ["location", "configurable"], 
-"resources": {"media": []}, 
-"versionCode": 1, "targetPlatforms": ["aplite"], 
-"longName": "menu testing", "projectType": "native", "shortName": "menu testing", 
-"appKeys": {"KEY_DATA": 5, "KEY_ANG": 1, "KEY_DIST": 2}, "companyName": "joeylee0925@gmail.com"}
+{
+    "appKeys": {
+        "KEY_ANG": 1,
+        "KEY_DATA": 5,
+        "KEY_DIST": 3
+    },
+    "capabilities": [
+        "location",
+        "configurable"
+    ],
+    "companyName": "joeylee0925@gmail.com",
+    "longName": "menu testing",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "menu testing",
+    "targetPlatforms": [
+        "aplite"
+    ],
+    "uuid": "6a45f61f-6cf2-4384-9cfd-3de8407d2ab3",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}

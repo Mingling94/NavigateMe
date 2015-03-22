@@ -1,6 +1,6 @@
 var dest =  {
-	lon : 6,		// Changer to update from server
-	lat : 4
+	lon : 42,		// Changer to update from server
+	lat : 73
 };
 
 
@@ -38,7 +38,7 @@ function locationSuccess(pos) {
 
 Pebble.sendAppMessage({
           'KEY_DIST': dist ,
-		'KEY_ANG' : angle}
+		'KEY_ANG' : angle*360/2/3.14}
         );
 }
 
