@@ -28,11 +28,9 @@ function locationSuccess(pos) {
 	var angle;
 
 	if(diffLon > 0){
-		// three fourths pi in radians
 		angle = 2.35619449019 - Math.atan(diffLat/diffLon) ; 
 	}
 	else{
-		// one half pi in radians
 		angle = Math.atan(diffLat/diffLon) + 0.7853981633;
 	}
 
