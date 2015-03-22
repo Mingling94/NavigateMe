@@ -6,3 +6,4 @@ Members:
 Ming Luo
 Joseph Lee
 Xin Xin
+James Carroll
