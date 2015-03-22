@@ -1,6 +1,6 @@
 var dest =  {
 	lon : 6,		// Changer to update from server
-	lat : 3
+	lat : 4
 };
 
 
@@ -34,21 +34,12 @@ function locationSuccess(pos) {
 		angle = Math.atan(diffLat/diffLon) + 0.7853981633;
 	}
 
-	// Construct a dictionary
-	var dict = {
-		'KEY_DIST': dist ,
-		'KEY_ANG' : angle
-	};
+  console.log("Angle is " + angle);
 
-	// Send a string to Pebble
-	Pebble.sendAppMessage(dict,
-		function(e) {
-            console.log('Send successful.');
-		},
-		function(e) {
-            console.log('Send failed!');
-		}
-	);
+Pebble.sendAppMessage({
+          'KEY_DIST': dist ,
+		'KEY_ANG' : angle}
+        );
 }
 
 
