@@ -60,31 +60,31 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
       }
 }
 
-static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
+// static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   // Get the first pair
-  Tuple *t = dict_read_first(iterator);
+//   Tuple *t = dict_read_first(iterator);
 
   // Process all pairs present
-  while (t != NULL) {
+//   while (t != NULL) {
     // Long lived buffer
-    static char s_buffer[64];
+//     static char s_buffer[64];
 
     // Process this pair's key
-    switch (t->key) {
-      case KEY_ANG:
+//     switch (t->key) {
+//       case KEY_ANG:
 
-        angle = t->value;
-        break;
-      case KEY_DIST:
+//         angle = t->value;
+//         break;
+//       case KEY_DIST:
         // Copy value and display
-        dist = t->value;
-        break;
-    }
+//         dist = t->value;
+//         break;
+//     }
 
     // Get next pair, if any
-    t = dict_read_next(iterator);
-  }
-}
+//     t = dict_read_next(iterator);
+//   }
+// }
 
 
 static void window_load(Window *window) {

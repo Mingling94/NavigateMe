@@ -1,1 +1,6 @@
-{"uuid": "6a45f61f-6cf2-4384-9cfd-3de8407d2ab3", "sdkVersion": "3", "watchapp": {"watchface": false}, "versionLabel": "1.0", "capabilities": ["location", "configurable"], "resources": {"media": [{"type": "png", "name": "IMAGE_BACKGROUND_BRAINS", "file": "images/brains_watch_background.png"}, {"type": "png", "name": "IMAGE_MENU_ICON_BINARY_WATCH", "file": "images/menu_icon_binary_watch.png"}, {"type": "png", "name": "IMAGE_MENU_ICON_SECTOR_WATCH", "file": "images/menu_icon_sector_watch.png"}, {"type": "png", "name": "IMAGE_MENU_ICON_BIG_WATCH", "file": "images/menu_icon_big_watch.png"}]}, "versionCode": 1, "targetPlatforms": ["aplite"], "longName": "menu testing", "projectType": "native", "shortName": "menu testing", "appKeys": {"KEY_DATA": 5, "KEY_ANG": 1, "KEY_DIST": 2}, "companyName": "joeylee0925@gmail.com"}
+{"uuid": "6a45f61f-6cf2-4384-9cfd-3de8407d2ab3", "sdkVersion": "3", 
+"watchapp": {"watchface": false}, "versionLabel": "1.0", "capabilities": ["location", "configurable"], 
+"resources": {"media": []}, 
+"versionCode": 1, "targetPlatforms": ["aplite"], 
+"longName": "menu testing", "projectType": "native", "shortName": "menu testing", 
+"appKeys": {"KEY_DATA": 5, "KEY_ANG": 1, "KEY_DIST": 2}, "companyName": "joeylee0925@gmail.com"}
