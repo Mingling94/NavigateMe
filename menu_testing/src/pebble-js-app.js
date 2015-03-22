@@ -43,10 +43,10 @@ function locationSuccess(pos) {
 	// Send a string to Pebble
 	Pebble.sendAppMessage(dict,
 		function(e) {
-            console.log('Send successful.');
+      console.log('Send successful.');
 		},
 		function(e) {
-            console.log('Send failed!');
+      console.log('Send failed!');
 		}
 	);
 }
@@ -79,21 +79,6 @@ Pebble.addEventListener('ready',
 );
  
 
-// // Set callback for appmessage events
-// Pebble.addEventListener("appmessage", function(e) {
-//   console.log('Received message: ' + JSON.stringify(e.payload));
-  
-//   if (e.payload.init) {
-//     isInitMsg = true;
-
-
-//   } else if (e.payload.fetch) {
-//     isInitMsg = false;
-
-//   }
-//   getLocation();
-
-// });
 
 Pebble.addEventListener('appmessage',
   function(e) {
