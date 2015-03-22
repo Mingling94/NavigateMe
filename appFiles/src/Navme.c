@@ -3,12 +3,15 @@
 #define NUM_MENU_SECTIONS 1
 #define NUM_MENU_ICONS 3
 #define NUM_FIRST_MENU_ITEMS 15
-#define KEY_DATA 5
+#define KEY_DIST 3
+#define KEY_ANG 1
+
 
 static Window *s_main_window;
 static Window *direction_window;
 static MenuLayer *s_menu_layer;
 static TextLayer *direction_text;
+
 static GBitmap *s_menu_icons[NUM_MENU_ICONS];
 static GBitmap *s_background_bitmap;
 
@@ -60,6 +63,26 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
       }
 }
 
+static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
+  // Get the first pair
+  //Tuple *t = dict_read_first(iterator);
+  
+  Tuple *dist_tuple = dict_find(iterator, KEY_DIST);
+  Tuple *angle_tuple = dict_find(iterator , KEY_ANG); 
+  static char s_buffer[64];
+  if(dist_tuple){
+    snprintf(s_buffer, sizeof(s_buffer), "Distance received '%d'\n", dist_tuple->value->uint8);
+        text_layer_set_text(direction_text, s_buffer);
+      APP_LOG(APP_LOG_LEVEL_INFO, s_buffer);
+  }
+  if(angle_tuple){
+    snprintf(s_buffer, sizeof(s_buffer), "%sAngle received '%d'",s_buffer, angle_tuple->value->uint8);
+        text_layer_set_text(direction_text, s_buffer);
+      APP_LOG(APP_LOG_LEVEL_INFO, s_buffer);
+  }
+  
+  APP_LOG(APP_LOG_LEVEL_INFO, "Message received!xxxxxxx");
+}
 // static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   // Get the first pair
 //   Tuple *t = dict_read_first(iterator);
@@ -88,17 +111,18 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
 
 
 static void window_load(Window *window) {
-  direction_text
- = text_layer_create(GRect(0, 55, 144, 50));
+  direction_text = text_layer_create(GRect(0, 55, 144, 50));
   text_layer_set_background_color(direction_text
   , GColorClear);
   text_layer_set_text_color(direction_text
   , GColorBlack);
   text_layer_set_text(direction_text
   , "00:00");
+  app_message_register_inbox_received(inbox_received_callback);
   
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(direction_text
   ));
+ 
 }
 static void window_unload(Window *window) {
   window_destroy(direction_window);
@@ -171,8 +195,8 @@ static void init() {
     .unload = main_window_unload,
   });
   window_stack_push(s_main_window, true);
-  
   app_message_open(64, 64);
+
 }
 
 static void deinit() {
