@@ -43,10 +43,10 @@ function locationSuccess(pos) {
 	// Send a string to Pebble
 	Pebble.sendAppMessage(dict,
 		function(e) {
-      console.log('Send successful.');
+            console.log('Send successful.');
 		},
 		function(e) {
-      console.log('Send failed!');
+            console.log('Send failed!');
 		}
 	);
 }
